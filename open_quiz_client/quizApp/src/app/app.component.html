@@ -1,13 +1,19 @@
 
 
-
-
-  <div class="d-flex flex-column min-vh-100 min-vw-100">
-    <div>This div is not centered.</div>
-    <div class="d-flex flex-grow-1 justify-content-center align-items-center">
-      <button type="button" class="btn btn-primary btn-lg">Go to Quiz</button>
-    </div>
+ <div *ngIf="buttonNotPressed" class="d-flex flex-column min-vh-100 min-vw-100">
+  <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+    <button type="button" class="btn btn-primary btn-lg" (click)="gotoHome()">Go to Quiz</button>
   </div>
+</div>
+
+ <div class="container">
+        
+  <router-outlet></router-outlet>
+   
+
+</div>
+
+  <!-- <app-quiz-view></app-quiz-view> -->
 
 
 <!-- FOR BOOTSTRAP 4  -->
