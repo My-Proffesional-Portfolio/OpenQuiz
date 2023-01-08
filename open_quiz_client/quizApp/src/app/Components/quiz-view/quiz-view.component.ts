@@ -24,7 +24,7 @@ export class QuizViewComponent implements OnInit {
       debugger;
       console.log(data)
       this.categoriesList = data.trivia_categories;
-      this.selectedCategtory = this.categoriesList[0]
+      this.selectedCategtory = this.categoriesList[0];
     })
   }
 

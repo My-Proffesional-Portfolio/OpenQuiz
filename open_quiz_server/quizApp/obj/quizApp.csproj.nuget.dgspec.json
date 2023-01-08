@@ -1,35 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rolando\\Desktop\\Code 2022\\Quiz\\open_quiz_server\\quizApp\\quizApp.csproj": {}
+    "C:\\Users\\Rolando\\Desktop\\Code\\Quiz\\OpenQuiz\\open_quiz_server\\quizApp\\quizApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rolando\\Desktop\\Code 2022\\Quiz\\open_quiz_server\\quizApp\\quizApp.csproj": {
+    "C:\\Users\\Rolando\\Desktop\\Code\\Quiz\\OpenQuiz\\open_quiz_server\\quizApp\\quizApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rolando\\Desktop\\Code 2022\\Quiz\\open_quiz_server\\quizApp\\quizApp.csproj",
+        "projectUniqueName": "C:\\Users\\Rolando\\Desktop\\Code\\Quiz\\OpenQuiz\\open_quiz_server\\quizApp\\quizApp.csproj",
         "projectName": "quizApp",
-        "projectPath": "C:\\Users\\Rolando\\Desktop\\Code 2022\\Quiz\\open_quiz_server\\quizApp\\quizApp.csproj",
+        "projectPath": "C:\\Users\\Rolando\\Desktop\\Code\\Quiz\\OpenQuiz\\open_quiz_server\\quizApp\\quizApp.csproj",
         "packagesPath": "C:\\Users\\Rolando\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rolando\\Desktop\\Code 2022\\Quiz\\open_quiz_server\\quizApp\\obj\\",
+        "outputPath": "C:\\Users\\Rolando\\Desktop\\Code\\Quiz\\OpenQuiz\\open_quiz_server\\quizApp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\Rolando\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -51,6 +43,14 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.2, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[108.0.3, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
