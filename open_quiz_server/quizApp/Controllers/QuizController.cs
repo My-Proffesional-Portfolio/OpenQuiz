@@ -2,6 +2,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using quizApp.Session;
+using MoreLinq;
 
 namespace quizApp.Controllers;
 
@@ -32,6 +33,10 @@ public class QuizController : ControllerBase
             internalQuestion.Question = q.question;
             internalQuestion.Answers = q.incorrect_answers;
             internalQuestion.Answers.Add(q.correct_answer);
+
+            internalQuestion.Answers = internalQuestion.Answers.Shuffle().ToList();
+
+            viewList.Add(internalQuestion);
         }
 
         HttpContext.Session.SetObject("serverQuestions", obj);
