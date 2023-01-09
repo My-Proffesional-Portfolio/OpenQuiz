@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace quizApp.Controllers
+namespace quizApp.Models
 {
     public class QuizApiOriginalResponseModel
     {
@@ -16,9 +16,9 @@ namespace quizApp.Controllers
         public string question { get; set; }
         public string correct_answer { get; set; }
         public List<string> incorrect_answers { get; set; }
-         [JsonIgnore]
+        [JsonIgnore]
         public Guid InternalUUID { get;  set; }
-         [JsonIgnore]
+        [JsonIgnore]
         public bool IsCorrectAndwerPoint { get; set; }
     }
 

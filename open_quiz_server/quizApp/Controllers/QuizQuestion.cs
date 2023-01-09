@@ -1,4 +1,4 @@
-namespace quizApp.Controllers;
+namespace quizApp.Models;
     public class QuizQuestion
     {
         public QuizQuestion()

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using quizApp.Session;
 using MoreLinq;
+using quizApp.Models;
 
 namespace quizApp.Controllers;
 
@@ -41,5 +42,32 @@ public class QuizController : ControllerBase
 
         HttpContext.Session.SetObject("serverQuestions", obj);
         return Ok(viewList);
+    }
+
+
+    [HttpGet]
+    [Route("session")]
+    public IActionResult Session (Guid questionID, string userAnswer)
+    {
+        var sessionQuestions =  HttpContext.Session.GetObject<QuizApiOriginalResponseModel>("serverQuestions");
+
+        var selectedQuestion = sessionQuestions.results.Where(w=> w.InternalUUID == questionID).FirstOrDefault();
+
+        if (selectedQuestion == null)
+            return NotFound("Question not found in your session");
+        
+        var correct_answer = selectedQuestion.correct_answer;
+
+        if (correct_answer == userAnswer)
+        {
+            selectedQuestion.IsCorrectAndwerPoint = true;
+            HttpContext.Session.SetObject("serverQuestions", sessionQuestions);
+            return Ok (new {isCorrectAndwer = true, yourAnswer = userAnswer,  correctAnswer =  correct_answer});
+        }
+
+
+         selectedQuestion.IsCorrectAndwerPoint = false;
+         HttpContext.Session.SetObject("serverQuestions", sessionQuestions);
+         return Ok (new {isCorrectAndwer = false, yourAnswer = userAnswer, correctAnswer =  correct_answer});
     }
 }
