@@ -20,6 +20,8 @@ namespace quizApp.Models
         public Guid InternalUUID { get;  set; }
         [JsonIgnore]
         public bool IsCorrectAndwerPoint { get; set; }
+        [JsonIgnore]
+        public bool IsQuestionAnswered { get;  set; }
     }
 
 }
