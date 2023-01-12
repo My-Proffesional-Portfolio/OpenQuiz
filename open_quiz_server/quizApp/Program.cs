@@ -13,6 +13,7 @@ builder.Services.AddCors(options =>
                            policy
                         .AllowAnyMethod()
                         .AllowAnyHeader()
+                        // https://stackoverflow.com/questions/53675850/how-to-fix-the-cors-protocol-does-not-allow-specifying-a-wildcard-any-origin
                         .SetIsOriginAllowed(origin => true) // allow any origin
                         .AllowCredentials();
                           
@@ -24,12 +25,6 @@ builder.Services.AddControllers();
 builder.Services.AddMvc()
         .AddSessionStateTempDataProvider();
 builder.Services.AddDistributedMemoryCache();
-
-builder.Services.Configure<CookiePolicyOptions>(options =>
-{
-    options.CheckConsentNeeded = context => false; // consent required
-    options.MinimumSameSitePolicy = SameSiteMode.None;
-});
 
 builder.Services.AddSession();
 
