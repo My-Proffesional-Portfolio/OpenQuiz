@@ -1,17 +1,19 @@
 <br>
 
+<!-- FOR PRODUCTION RELEASE: ng build --configuration production --base-href http://openquiz.somee.com/app/ -->
+
 <div style="text-align: center;">
     <h1>Welcome to OPEN TRIVIA</h1>
 </div>
 
 <br>
 
-<form>
+<form *ngIf="quizQuestions.length == 0">
   
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">Enter your name</label>
       <input type="text" class="form-control" id="exampleInputPassword1">
-    </div>
+    </div> -->
     <!-- <div class="mb-3">
     <label for="contactMethod">Category</label>
     
@@ -23,7 +25,7 @@
         <option *ngFor="let method of contactMethods" [value]="method.id">{{ method.label }}</option>
     </select>
     </div> -->
-    <div class="mb-3">
+       <div class="mb-3">
         <label for="Category">Category</label>
         
         <select 
@@ -38,7 +40,81 @@
   </form>
 
   <br>
-  <div *ngFor='let question of quizQuestions; let i = index;'>
+  <div *ngIf="quizQuestions.length > 0 && !isGameOver" >
+    <div class="mx-0 mx-sm-auto">
+        <div class="card">
+        <div class="card-body">
+            <div class="text-center">
+            <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
+            <p>
+                <strong>QUESTION # {{indexOfCards+1}}</strong>
+            </p>
+            <p>
+               {{quizQuestions[indexOfCards].question}}
+               
+            </p>
+            </div>
+    
+            <hr />
+    
+            <form class="px-4" action="">
+            <p class="text-center"><strong>Your answer:</strong></p>
+    
+            <div *ngFor='let option of quizQuestions[indexOfCards].answers; let ai = index;' class="form-check mb-2">
+                <input class="form-check-input" (click)="getSelectedQuestion(quizQuestions[indexOfCards].id, ai)"  type="radio" name="exampleForm" id="radio2Example1" />
+                <label class="form-check-label" for="radio2Example1">
+                {{option}}
+                </label>
+            </div>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <h1 *ngIf="quizQuestions[indexOfCards].isCorrect" style="color: green;">Correct</h1>
+            <h1 *ngIf="quizQuestions[indexOfCards].isAnswered && !quizQuestions[indexOfCards].isCorrect" style="color: red;">Bad answer, correct answeer is: {{quizQuestions[indexOfCards].correctAnswer}}</h1>
+            <button *ngIf="!quizQuestions[indexOfCards].isAnswered" type="button" class="btn btn-primary" (click)="sendAnswerToServer(quizQuestions[indexOfCards].id)">Submit</button>
+            <button *ngIf="quizQuestions[indexOfCards].isAnswered" type="button" class="btn btn-primary" (click)="nextCard()">Next card</button>
+        </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+
+<div *ngIf="isGameOver" >
+    <div class="mx-0 mx-sm-auto">
+        <div class="card">
+        <div class="card-body">
+            <div class="text-center">
+            <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
+            <p>
+                <strong>GAME IS OVER</strong>
+            </p>
+            <p>
+               
+               
+            </p>
+            </div>
+    
+            <hr />
+    
+            <form class="px-4" action="">
+            <p class="text-center"><strong>Total points: {{totalGamePoints}}</strong></p>
+    
+            <div class="form-check mb-2">
+               <h3></h3>
+            </div>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+           
+        </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+
+  <!-- <div *ngFor='let question of quizQuestions; let i = index;'>
     <div class="mx-0 mx-sm-auto">
         <div class="card">
         <div class="card-body">
@@ -49,7 +125,7 @@
             </p>
             <p>
                {{question.question}}
-                <!-- <strong>Give us your feedback.</strong> -->
+               
             </p>
             </div>
     
@@ -67,10 +143,11 @@
             </form>
         </div>
         <div class="card-footer text-center">
-            <h1 *ngIf="question.isCorrect">Correct</h1>
-            <button type="button" class="btn btn-primary" (click)="sendAnswerToServer(question.id)">Submit</button>
+            <h1 *ngIf="question.isCorrect" style="color: green;">Correct</h1>
+            <h1 *ngIf="question.isAnswered && !question.isCorrect" style="color: red;">Bad answer, correct answeer is: {{question.correctAnswer}}</h1>
+            <button *ngIf="!question.isAnswered" type="button" class="btn btn-primary" (click)="sendAnswerToServer(question.id)">Submit</button>
         </div>
         </div>
     </div>
     <br>
-</div>
+</div> -->

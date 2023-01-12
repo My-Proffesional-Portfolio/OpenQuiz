@@ -1,6 +1,7 @@
 using System.Text.Json;
 using MoreLinq;
 using quizApp.Models;
+using quizApp.Models.Exceptions;
 using quizApp.Session;
 using RestSharp;
 
@@ -50,12 +51,12 @@ public class QuizService
         var sessionQuestions =  _httpContextAccessor.HttpContext.Session.GetObject<QuizApiOriginalResponseModel>("serverQuestions");
 
         if (sessionQuestions == null)
-            throw new Exception("Your session hasn´t started");
+            throw new NotFoundException("Your session hasn´t started");
 
         var selectedQuestion = sessionQuestions.results.Where(w=> w.InternalUUID == questionID).FirstOrDefault();
 
         if (selectedQuestion == null || selectedQuestion.IsQuestionAnswered)
-            throw new Exception("Question not found in your session or has been previously answered");
+            throw new NotFoundException("Question not found in your session or has been previously answered");
         
         var correct_answer = selectedQuestion.correct_answer;
 

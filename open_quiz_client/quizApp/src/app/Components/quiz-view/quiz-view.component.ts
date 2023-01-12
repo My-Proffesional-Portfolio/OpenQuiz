@@ -23,6 +23,10 @@ export class QuizViewComponent implements OnInit {
   categoriesList : CategoriesCatalog[] = []
   selectedCategtory : CategoriesCatalog = <CategoriesCatalog>{}
   quizQuestions : QuizQuestion[] = []
+  totalGamePoints : number = 0;
+  isGameOver: boolean = false;
+
+  indexOfCards = 0;
 
   ngOnInit(): void {
     this.catService.getQuizCategories().subscribe((data: any)=> {
@@ -84,6 +88,10 @@ export class QuizViewComponent implements OnInit {
               {
                 this.quizQuestions[index].isAnswered = true;
                 this.quizQuestions[index].isCorrect = data.isCorrectAnswer;
+                this.quizQuestions[index].correctAnswer = data.correctAnswer;
+                debugger;
+                this.totalGamePoints = data.acomulatedPoints;
+                this.isGameOver = data.isGameFinished
                 break;
               }
               
@@ -98,6 +106,10 @@ export class QuizViewComponent implements OnInit {
       }
     }
 
+
+    nextCard(){
+      this.indexOfCards = this.indexOfCards+1;
+    }
   // contactMethods = [
   //   { id: 1, label: "Email" },
   //   { id: 2, label: "Phone" }
