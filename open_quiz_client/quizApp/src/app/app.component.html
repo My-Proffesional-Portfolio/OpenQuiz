@@ -9,6 +9,10 @@
  <div class="container">
         
   <router-outlet></router-outlet>
+  <div *ngIf="!buttonNotPressed">
+    <app-quiz-view></app-quiz-view>
+  </div>
+  
    
 
 </div>

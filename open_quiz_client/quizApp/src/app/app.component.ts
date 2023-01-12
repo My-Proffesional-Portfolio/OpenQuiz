@@ -16,6 +16,6 @@ export class AppComponent {
 
     gotoHome(){
       this.buttonNotPressed = false
-        this.router.navigate(['/quiz']);  // define your component where you want to go
+        // this.router.navigate(['/quiz']);  // define your component where you want to go
     }
 }
