@@ -12,9 +12,9 @@ builder.Services.AddCors(options =>
                       {
                            policy
                         .AllowAnyMethod()
-                .AllowAnyHeader()
-                .SetIsOriginAllowed(origin => true) // allow any origin
-                .AllowCredentials();
+                        .AllowAnyHeader()
+                        .SetIsOriginAllowed(origin => true) // allow any origin
+                        .AllowCredentials();
                           
                       });
 });
@@ -31,12 +31,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-builder.Services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromDays(365);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
+builder.Services.AddSession();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<QuizService>();
