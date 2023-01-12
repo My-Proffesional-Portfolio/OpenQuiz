@@ -36,6 +36,7 @@ public class QuizService
             internalQuestion.Answers.Add(q.correct_answer);
 
             internalQuestion.Answers = internalQuestion.Answers.Shuffle().ToList();
+            internalQuestion.SessionID = _httpContextAccessor.HttpContext.Session.Id;
 
             viewList.Add(internalQuestion);
         }
@@ -44,7 +45,7 @@ public class QuizService
         return viewList;
     }
 
-    public object EvaluateAnswerFromSession (Guid questionID, string userAnswer)
+    public QuestionAnswerResponseModel EvaluateAnswerFromSession (Guid questionID, string userAnswer)
     {
         var sessionQuestions =  _httpContextAccessor.HttpContext.Session.GetObject<QuizApiOriginalResponseModel>("serverQuestions");
 
@@ -60,28 +61,30 @@ public class QuizService
 
         selectedQuestion.IsQuestionAnswered = true;
 
-        var response =  new object();
+        var response =  new QuestionAnswerResponseModel();
         if (correct_answer == userAnswer)
         {
             selectedQuestion.IsCorrectAndwerPoint = true;
-            response = new {
-                isCorrectAndwer = true, 
-                yourAnswer = userAnswer,  
-                correctAnswer =  correct_answer, 
-                isGameFinished = sessionQuestions.results.All(a=> a.IsQuestionAnswered),
-                acomulatedPoints = sessionQuestions.results.Count(c=> c.IsCorrectAndwerPoint) * 100
+            response = new  QuestionAnswerResponseModel {
+                IsCorrectAnswer = true, 
+                YourAnswer = userAnswer,  
+                CorrectAnswer =  correct_answer, 
+                IsGameFinished = sessionQuestions.results.All(a=> a.IsQuestionAnswered),
+                AcomulatedPoints = sessionQuestions.results.Count(c=> c.IsCorrectAndwerPoint) * 100,
+                QuestionID = questionID,
                 };
         }
 
-        
-         response = new 
-         {
-            isCorrectAndwer = false, 
-            yourAnswer = userAnswer, 
-            correctAnswer =  correct_answer,
-            isGameFinished = sessionQuestions.results.All(a=> a.IsQuestionAnswered),
-            acomulatedPoints = sessionQuestions.results.Count(c=> c.IsCorrectAndwerPoint) * 100
-        };
+        else
+            response = new QuestionAnswerResponseModel
+            {
+                IsCorrectAnswer = false, 
+                YourAnswer = userAnswer, 
+                CorrectAnswer =  correct_answer,
+                IsGameFinished = sessionQuestions.results.All(a=> a.IsQuestionAnswered),
+                AcomulatedPoints = sessionQuestions.results.Count(c=> c.IsCorrectAndwerPoint) * 100,
+                QuestionID = questionID
+            };
 
          _httpContextAccessor.HttpContext.Session.SetObject("serverQuestions", sessionQuestions);
 

@@ -11,7 +11,7 @@ namespace quizApp.Controllers;
 
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class QuizController : ControllerBase
 {
 
