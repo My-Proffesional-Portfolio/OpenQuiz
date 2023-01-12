@@ -40,6 +40,7 @@ export class QuizViewComponent implements OnInit {
     .subscribe({
       next: (data: any) => {
         this.quizQuestions = data;
+        localStorage.setItem("B1SESSION", JSON.stringify(this.quizQuestions[0].sessionID));
       },
       error: (err) => {
         alert(err.statusText);
@@ -66,13 +67,34 @@ export class QuizViewComponent implements OnInit {
       // if (question != undefined){
       //   question.selectedAnswer = selectedOption;
       // }
-      alert("selected option : " + selectedOption + " Question ID: " + questionID);
     }
 
     sendAnswerToServer(questionID: Guid){
+      debugger;
       var question = this.quizQuestions.find(({id}) => id === questionID);
       if (question != undefined){
-        alert("Answer : " +  question.selectedAnswer + " QuestionID " + questionID);
+       
+        this.quizService.ReviewAnswerInServer(questionID, question.selectedAnswer).
+        subscribe({
+          next: (data: any) => {
+            var isCorrect = data;
+            for (let index = 0; index < this.quizQuestions.length; index++) {
+        
+              if (this.quizQuestions[index].id === questionID)
+              {
+                this.quizQuestions[index].isAnswered = true;
+                this.quizQuestions[index].isCorrect = data.isCorrectAnswer;
+                break;
+              }
+              
+            }
+          },
+          error: (err) => {
+            alert(err.statusText);
+            },
+          });
+
+
       }
     }
 

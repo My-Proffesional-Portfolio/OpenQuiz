@@ -5,4 +5,7 @@ export interface QuizQuestion {
     question: string;
     answers: string[];
     selectedAnswer: string;
+    isCorrect: boolean;
+    isAnswered: boolean;
+    sessionID: string;
 }

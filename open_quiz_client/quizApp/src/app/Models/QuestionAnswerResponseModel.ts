@@ -2,7 +2,7 @@
 import { Guid } from "guid-typescript";
 
 export interface QuestionAnswerResponseModel {
-    isCorrectAndwer: boolean;
+    isCorrectAnswer: boolean;
     yourAnswer: string;
     acomulatedPoints: number;
     isGameFinished: boolean;
