@@ -52,8 +52,28 @@ export class QuizViewComponent implements OnInit {
       debugger;
       var question = this.quizQuestions.find(({id}) => id === questionID);
       var options = question == undefined ? []: question.answers;
-      var selectedOption = options[answerIndex]
+      var selectedOption = options[answerIndex];
+
+      for (let index = 0; index < this.quizQuestions.length; index++) {
+        
+        if (this.quizQuestions[index].id === questionID)
+        {
+          this.quizQuestions[index].selectedAnswer = selectedOption;
+          break;
+        }
+        
+      }
+      // if (question != undefined){
+      //   question.selectedAnswer = selectedOption;
+      // }
       alert("selected option : " + selectedOption + " Question ID: " + questionID);
+    }
+
+    sendAnswerToServer(questionID: Guid){
+      var question = this.quizQuestions.find(({id}) => id === questionID);
+      if (question != undefined){
+        alert("Answer : " +  question.selectedAnswer + " QuestionID " + questionID);
+      }
     }
 
   // contactMethods = [
