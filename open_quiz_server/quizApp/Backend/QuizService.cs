@@ -21,10 +21,11 @@ public class QuizService
         //https://opentdb.com/api.php?amount=10&category=10&difficulty=easy
         var client = new RestClient("https://opentdb.com/api.php");
 
-        var request = new RestRequest("?amount=10&category=" + categoryID + "&difficulty=easy");
+        var request = new RestRequest("?amount=10&category=" + categoryID + "&difficulty=easy&encode=base64");
         var response =  client.Get(request);
-        var obj = JsonSerializer.Deserialize<QuizApiOriginalResponseModel>(response.Content);
+        var objEncoded = JsonSerializer.Deserialize<QuizApiOriginalResponseModel>(response.Content);
 
+        var obj = DecodeQuizResponse(objEncoded);
         var viewList = new List<QuizQuestion>();
         foreach (var q in obj.results)
         {
@@ -44,6 +45,24 @@ public class QuizService
 
         _httpContextAccessor.HttpContext.Session.SetObject("serverQuestions", obj);
         return viewList;
+    }
+
+    private QuizApiOriginalResponseModel DecodeQuizResponse(QuizApiOriginalResponseModel objEncoded)
+    {
+        var decodedResult =  new QuizApiOriginalResponseModel();
+        decodedResult.response_code = objEncoded.response_code;
+        decodedResult.results = new List<Result>();
+
+        objEncoded.results.ForEach(fe=> {
+            var r = new Result();
+            r.category = Utils.DecodeBase64String(fe.category);
+            r.correct_answer = Utils.DecodeBase64String(fe.correct_answer);
+            r.incorrect_answers = fe.incorrect_answers.Select(s=> Utils.DecodeBase64String(s)).ToList();
+            r.question = Utils.DecodeBase64String(fe.question);
+            decodedResult.results.Add(r);
+        });
+        
+        return decodedResult;
     }
 
     public QuestionAnswerResponseModel EvaluateAnswerFromSession (Guid questionID, string userAnswer)
