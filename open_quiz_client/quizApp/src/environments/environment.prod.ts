@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  openQuizServerURL : "http://opentrivia-server.somee.com/app/api/"
+  openQuizServerURL : "https://opentrivia-server.somee.com/app/api/"
 };
